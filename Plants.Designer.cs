@@ -238,6 +238,11 @@ namespace Practica
             // 
             // numericUpDown_Illumination1
             // 
+            this.numericUpDown_Illumination1.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Illumination1.Location = new System.Drawing.Point(7, 119);
             this.numericUpDown_Illumination1.Name = "numericUpDown_Illumination1";
             this.numericUpDown_Illumination1.Size = new System.Drawing.Size(118, 22);
@@ -260,6 +265,11 @@ namespace Practica
             // 
             // numericUpDown_Humidity1
             // 
+            this.numericUpDown_Humidity1.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Humidity1.Location = new System.Drawing.Point(7, 74);
             this.numericUpDown_Humidity1.Name = "numericUpDown_Humidity1";
             this.numericUpDown_Humidity1.Size = new System.Drawing.Size(118, 22);
@@ -282,6 +292,11 @@ namespace Practica
             // 
             // numericUpDown_Fertility1
             // 
+            this.numericUpDown_Fertility1.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Fertility1.Location = new System.Drawing.Point(7, 29);
             this.numericUpDown_Fertility1.Name = "numericUpDown_Fertility1";
             this.numericUpDown_Fertility1.Size = new System.Drawing.Size(118, 22);
@@ -320,12 +335,17 @@ namespace Practica
             // 
             // numericUpDown_Illumination2
             // 
+            this.numericUpDown_Illumination2.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Illumination2.Location = new System.Drawing.Point(7, 119);
             this.numericUpDown_Illumination2.Name = "numericUpDown_Illumination2";
             this.numericUpDown_Illumination2.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Illumination2.TabIndex = 11;
             this.numericUpDown_Illumination2.Value = new decimal(new int[] {
-            50,
+            55,
             0,
             0,
             0});
@@ -342,12 +362,17 @@ namespace Practica
             // 
             // numericUpDown_Humidity2
             // 
+            this.numericUpDown_Humidity2.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Humidity2.Location = new System.Drawing.Point(7, 74);
             this.numericUpDown_Humidity2.Name = "numericUpDown_Humidity2";
             this.numericUpDown_Humidity2.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Humidity2.TabIndex = 9;
             this.numericUpDown_Humidity2.Value = new decimal(new int[] {
-            50,
+            55,
             0,
             0,
             0});
@@ -364,12 +389,17 @@ namespace Practica
             // 
             // numericUpDown_Fertility2
             // 
+            this.numericUpDown_Fertility2.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Fertility2.Location = new System.Drawing.Point(7, 29);
             this.numericUpDown_Fertility2.Name = "numericUpDown_Fertility2";
             this.numericUpDown_Fertility2.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Fertility2.TabIndex = 7;
             this.numericUpDown_Fertility2.Value = new decimal(new int[] {
-            50,
+            55,
             0,
             0,
             0});
@@ -402,12 +432,17 @@ namespace Practica
             // 
             // numericUpDown_Illumination3
             // 
+            this.numericUpDown_Illumination3.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Illumination3.Location = new System.Drawing.Point(7, 119);
             this.numericUpDown_Illumination3.Name = "numericUpDown_Illumination3";
             this.numericUpDown_Illumination3.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Illumination3.TabIndex = 11;
             this.numericUpDown_Illumination3.Value = new decimal(new int[] {
-            70,
+            60,
             0,
             0,
             0});
@@ -424,12 +459,17 @@ namespace Practica
             // 
             // numericUpDown_Humidity3
             // 
+            this.numericUpDown_Humidity3.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Humidity3.Location = new System.Drawing.Point(7, 74);
             this.numericUpDown_Humidity3.Name = "numericUpDown_Humidity3";
             this.numericUpDown_Humidity3.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Humidity3.TabIndex = 9;
             this.numericUpDown_Humidity3.Value = new decimal(new int[] {
-            70,
+            45,
             0,
             0,
             0});
@@ -446,12 +486,17 @@ namespace Practica
             // 
             // numericUpDown_Fertility3
             // 
+            this.numericUpDown_Fertility3.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Fertility3.Location = new System.Drawing.Point(7, 29);
             this.numericUpDown_Fertility3.Name = "numericUpDown_Fertility3";
             this.numericUpDown_Fertility3.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Fertility3.TabIndex = 7;
             this.numericUpDown_Fertility3.Value = new decimal(new int[] {
-            70,
+            40,
             0,
             0,
             0});
@@ -484,12 +529,17 @@ namespace Practica
             // 
             // numericUpDown_Illumination4
             // 
+            this.numericUpDown_Illumination4.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Illumination4.Location = new System.Drawing.Point(7, 119);
             this.numericUpDown_Illumination4.Name = "numericUpDown_Illumination4";
             this.numericUpDown_Illumination4.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Illumination4.TabIndex = 11;
             this.numericUpDown_Illumination4.Value = new decimal(new int[] {
-            80,
+            45,
             0,
             0,
             0});
@@ -506,12 +556,17 @@ namespace Practica
             // 
             // numericUpDown_Humidity4
             // 
+            this.numericUpDown_Humidity4.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Humidity4.Location = new System.Drawing.Point(7, 74);
             this.numericUpDown_Humidity4.Name = "numericUpDown_Humidity4";
             this.numericUpDown_Humidity4.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Humidity4.TabIndex = 9;
             this.numericUpDown_Humidity4.Value = new decimal(new int[] {
-            80,
+            50,
             0,
             0,
             0});
@@ -528,12 +583,17 @@ namespace Practica
             // 
             // numericUpDown_Fertility4
             // 
+            this.numericUpDown_Fertility4.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDown_Fertility4.Location = new System.Drawing.Point(10, 29);
             this.numericUpDown_Fertility4.Name = "numericUpDown_Fertility4";
             this.numericUpDown_Fertility4.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown_Fertility4.TabIndex = 7;
             this.numericUpDown_Fertility4.Value = new decimal(new int[] {
-            80,
+            60,
             0,
             0,
             0});

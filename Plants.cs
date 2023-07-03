@@ -54,7 +54,7 @@ namespace Practica
             Ground.Fertility = (int)numericUpDown_Fertility.Value;
             Ground.Humidity = (int)numericUpDown_Humidity.Value;
             Ground.Illumination = (int)numericUpDown_Illumination.Value;
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 flag_Fertility[i] = true;
                 flag_Humidity[i] = true;
@@ -64,11 +64,11 @@ namespace Practica
 
         private void button_Accept_Click(object sender, EventArgs e)
         {
-            if(flag_Fertility[0])
+            if (flag_Fertility[0])
                 Ground.Fertility = (int)numericUpDown_Fertility.Value;
-            if(flag_Humidity[0])
+            if (flag_Humidity[0])
                 Ground.Humidity = (int)numericUpDown_Humidity.Value;
-            if(flag_Illumination[0])
+            if (flag_Illumination[0])
                 Ground.Illumination = (int)numericUpDown_Illumination.Value;
             Set_PlantChar(1, typeof(Plant), numericUpDown_Fertility1, numericUpDown_Humidity1, numericUpDown_Illumination1);
             Set_PlantChar(2, typeof(Plant_air_seed), numericUpDown_Fertility2, numericUpDown_Humidity2, numericUpDown_Illumination2);
@@ -100,19 +100,19 @@ namespace Practica
 
         private void button_Stop_Click(object sender, EventArgs e)
         {
-            if(flag_start)
-            if (flag_stop)
-            {
-                flag_stop = false;
-                button_Stop.Text = "Стоп";
-                StartSimulation();
-            }
-            else
-            {
-                flag_stop = true;
-                button_Stop.Text = "Продолжить";
-                StopSimulation();
-            }
+            if (flag_start)
+                if (flag_stop)
+                {
+                    flag_stop = false;
+                    button_Stop.Text = "Стоп";
+                    StartSimulation();
+                }
+                else
+                {
+                    flag_stop = true;
+                    button_Stop.Text = "Продолжить";
+                    StopSimulation();
+                }
         }
 
         private void numericUpDown_Width_ValueChanged(object sender, EventArgs e)
@@ -202,17 +202,16 @@ namespace Practica
             label_Population_Plant.Text = Convert.ToString(nomber_Plant + 1);
         }
 
-        private void Grow<T>(ref T[] Plant_mass, ref PictureBox[,] pictureBoxes, ref int nomber_Plant, ref int size_Plant, Label label_Population_Plant, int n) where T : Plant, new()
+        private void Grow<T>(ref T[] Plant_mass, ref PictureBox[,] pictureBoxes, ref int number_Plant, ref int size_Plant, Label label_Population_Plant, int n) where T : Plant, new()
         {
-            int old_nomber = nomber_Plant, old_x, old_y;
+            int old_nomber = number_Plant, old_x, old_y, last_number = number_Plant;
             for (int i = 0; i <= old_nomber; i++)
             {
-                
                 if (Plant_mass[i].Sprouts > 0)
                 {
                     Plant_mass[i].Aging(pictureBoxes);
                 }
-                
+
                 /*
                 //if (Plant_mass[i].Age % 12 == 0) ;
                 while(Plant_mass[i].Age > 0 && Plant_mass[i].Age % 5 == 0)
@@ -225,16 +224,6 @@ namespace Practica
                     i--;
                 }
                 */
-
-                if (Plant_mass[i].Age == 5)
-                {
-                    pictureBoxes[Plant_mass[i].Y, Plant_mass[i].X].BackColor = Color.Transparent;
-                    Plant_mass[i] = Plant_mass[nomber_Plant];
-                    nomber_Plant--;
-                    label_Population_Plant.Text = Convert.ToString(nomber_Plant + 1);
-                    i--;
-                    continue;
-                }
                 /*
                 if (Plant_mass[i].Color != pictureBoxes[Plant_mass[i].Y, Plant_mass[i].X].BackColor)
                 {
@@ -245,6 +234,49 @@ namespace Practica
                     continue;
                 }
                 */
+
+
+                /*
+                for (int j = i - 1; j <= nomber_Plant; j++)
+                {
+                    if (Plant_mass[i].Age == 5)
+                    {
+                        pictureBoxes[Plant_mass[i].Y, Plant_mass[i].X].BackColor = Color.Transparent;
+                        Plant_mass[i] = Plant_mass[nomber_Plant];
+                        nomber_Plant--;
+                    }
+                }
+                */
+
+                if (Plant_mass[i].Age == 5 && number_Plant >= 0)
+                {
+                    pictureBoxes[Plant_mass[i].Y, Plant_mass[i].X].BackColor = Color.Transparent;
+                    while (Plant_mass[number_Plant] == null)
+                        number_Plant--;
+                    Plant_mass[i] = Plant_mass[number_Plant];           //
+                    Plant_mass[number_Plant] = null;
+                    number_Plant--;
+                    label_Population_Plant.Text = Convert.ToString(number_Plant + 1);
+                    i--;
+                    continue;
+                }
+
+                for (int j = last_number; j <= number_Plant; j++)
+                {
+                    if (Plant_mass[j].Color != pictureBoxes[Plant_mass[j].Y, Plant_mass[j].X].BackColor)
+                    {
+                        while (Plant_mass[number_Plant] == null)
+                            number_Plant--;
+                        Plant_mass[j] = Plant_mass[number_Plant];
+                        Plant_mass[number_Plant] = null;
+                        number_Plant--;
+                        label_Population_Plant.Text = Convert.ToString(number_Plant + 1);
+                    }
+                }
+
+
+                last_number = number_Plant;
+
                 if (Plant_mass[i].Age > 0)
                 {
                     old_x = Plant_mass[i].X;
@@ -252,7 +284,7 @@ namespace Practica
                     int sprouts = Plant_mass[i].Sprouts;
                     for (int j = 0; j < sprouts; j++)
                     {
-                        Plant_mass[nomber_Plant + 1] = new T();
+                        Plant_mass[number_Plant + 1] = new T();
                         PropertyInfo property;
                         switch (n)
                         {
@@ -284,13 +316,14 @@ namespace Practica
                                 break;
                         }
 
+
                         property = typeof(T).GetProperty("Survival_rate", BindingFlags.Public | BindingFlags.Static);
                         if (property != null)
                         {
-                            property.SetValue(null, Plant_mass[nomber_Plant + 1].Set_Survival_rate(Ground));
+                            property.SetValue(null, Plant_mass[number_Plant + 1].Set_Survival_rate(Ground));
                         }
-                        
-                        for(int k = 0; k < 3; k++)
+
+                        for (int k = 0; k < 3; k++)
                         {
                             property = Surv_type[k].GetProperty("Survival_rate", BindingFlags.Public | BindingFlags.Static);
                             if (property != null)
@@ -299,15 +332,16 @@ namespace Practica
                             }
                         }
 
-                        Plant_mass[nomber_Plant + 1].Reproduction(old_x, old_y, width, height, pictureBoxes, Ground, Surv_rate);
+                        Plant_mass[number_Plant + 1].Reproduction(old_x, old_y, width, height, pictureBoxes, Ground, Surv_rate);
 
-                        if (Plant_mass[nomber_Plant + 1].Sprouts > 0)
+                        if (Plant_mass[number_Plant + 1].Sprouts > 0)
                         {
-                            nomber_Plant++;
-                            label_Population_Plant.Text = Convert.ToString(nomber_Plant + 1);
-                            if (nomber_Plant >= size_Plant - 1)
+                            number_Plant++;
+                            label_Population_Plant.Text = Convert.ToString(number_Plant + 1);
+                            if (number_Plant >= size_Plant - 1)
                             {
-                                size_Plant += 100;
+                                size_Plant *= 2;
+                                //Plant_mass.Length()
                                 Array.Resize(ref Plant_mass, size_Plant);
                             }
                         }

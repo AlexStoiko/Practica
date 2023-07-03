@@ -90,7 +90,7 @@ namespace Practica
         public override bool Get_GroundSurv(Ground ground)
         {
             //int n1 = Math.Abs(ground.Humidity - Required_humidity), n2 = Math.Abs(ground.Illumination - Required_illumination);
-            if (required_fertility - ground.Fertility < 10 && Math.Abs(ground.Humidity - required_humidity) < 10 && Math.Abs(ground.Illumination - required_illumination) < 15)
+            if (required_fertility - ground.Fertility < 15 && Math.Abs(ground.Humidity - required_humidity) < 15 && Math.Abs(ground.Illumination - required_illumination) < 20)
             {
                 return true;
             }
