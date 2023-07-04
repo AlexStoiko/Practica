@@ -20,17 +20,14 @@ namespace Practica
         int[] Surv_rate = new int[3];
         Type[] Surv_type = new Type[3];
 
-        int nomber_Plant1, size_Plant1 = 100, height, width;
-        Plant[] Plant1_mass = new Plant[100];
+        int height, width;
+        List<Plant> Plant1_mass = new List<Plant>();
 
-        int nomber_Plant2, size_Plant2 = 100;
-        Plant_air_seed[] Plant2_mass = new Plant_air_seed[100];
+        List<Plant_air_seed> Plant2_mass = new List<Plant_air_seed>();
 
-        int nomber_Plant3, size_Plant3 = 100;
-        Plant_seed_by_animal[] Plant3_mass = new Plant_seed_by_animal[100];
+        List<Plant_seed_by_animal> Plant3_mass = new List<Plant_seed_by_animal>();
 
-        int nomber_Plant4, size_Plant4 = 100;
-        Plant_vine[] Plant4_mass = new Plant_vine[100];
+        List<Plant_vine> Plant4_mass = new List<Plant_vine>();
 
         Ground Ground = new Ground();
 
@@ -41,10 +38,6 @@ namespace Practica
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            nomber_Plant1 = 0;
-            nomber_Plant2 = 0;
-            nomber_Plant3 = 0;
-            nomber_Plant4 = 0;
             flag_h = false;
             flag_w = false;
             flag_start = false;
@@ -78,10 +71,35 @@ namespace Practica
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            Grow<Plant>(ref Plant1_mass, ref pictureBoxes, ref nomber_Plant1, ref size_Plant1, label_Population_Plant1, 1);
-            Grow<Plant_air_seed>(ref Plant2_mass, ref pictureBoxes, ref nomber_Plant2, ref size_Plant2, label_Population_Plant2, 2);
-            Grow<Plant_seed_by_animal>(ref Plant3_mass, ref pictureBoxes, ref nomber_Plant3, ref size_Plant3, label_Population_Plant3, 3);
-            Grow<Plant_vine>(ref Plant4_mass, ref pictureBoxes, ref nomber_Plant4, ref size_Plant4, label_Population_Plant4, 4);
+            Grow(ref Plant1_mass, ref pictureBoxes, label_Population_Plant1);
+            Grow(ref Plant2_mass, ref pictureBoxes, label_Population_Plant2);
+            Grow(ref Plant3_mass, ref pictureBoxes, label_Population_Plant3);
+            Grow(ref Plant4_mass, ref pictureBoxes, label_Population_Plant4);
+            Print_Number();
+        }
+
+        private void Print_Number()
+        {
+            int n1 = 0, n2 = 0, n3 = 0, n4 = 0;
+            for(int i = 0; i < width; i++)
+            {
+                for(int j = 0; j < height; j++)
+                {
+                    if (pictureBoxes[i, j].BackColor == Color.Red || pictureBoxes[i, j].BackColor == Color.LightCoral)
+                        n1++;
+                    else if (pictureBoxes[i, j].BackColor == Color.Green || pictureBoxes[i, j].BackColor == Color.Lime)
+                        n2++;
+                    else if (pictureBoxes[i, j].BackColor == Color.Blue || pictureBoxes[i, j].BackColor == Color.Cyan)
+                        n3++;
+                    else if (pictureBoxes[i, j].BackColor == Color.Indigo || pictureBoxes[i, j].BackColor == Color.BlueViolet)
+                        n4++;
+                }
+            }
+            label_Population_Plant1.Text = Convert.ToString(n1);
+            label_Population_Plant2.Text = Convert.ToString(n2);
+            label_Population_Plant3.Text = Convert.ToString(n3);
+            label_Population_Plant4.Text = Convert.ToString(n4);
+
         }
 
         private void StartSimulation()
@@ -129,7 +147,6 @@ namespace Practica
 
         private void button_Start_Click(object sender, EventArgs e)
         {
-
             if (flag_w)
             {
                 width = Convert.ToInt32(numericUpDown_Width.Value);
@@ -159,6 +176,10 @@ namespace Practica
                 label_Population_Plant2.Text = Convert.ToString(0);
                 label_Population_Plant3.Text = Convert.ToString(0);
                 label_Population_Plant4.Text = Convert.ToString(0);
+                Plant1_mass.Clear();
+                Plant2_mass.Clear();
+                Plant3_mass.Clear();
+                Plant4_mass.Clear();
             }
             else
             {
@@ -173,15 +194,13 @@ namespace Practica
                         pictureBoxes[i, j].Size = new Size(13, 13);
                         pictureBoxes[i, j].Location = new Point(110 + j * 15, 2 + i * 15);
                         pictureBoxes[i, j].BackColor = Color.Transparent;
-                        //pictureBoxes[i, j].BackColor = Color.Gray;
-                        //pictureBoxes[height - 1, width - 1].BackColor = Color.Green;
                         this.Controls.Add(pictureBoxes[i, j]);
                     }
                 }
-                Set_Plant_mass<Plant>(ref Plant1_mass, ref pictureBoxes, ref nomber_Plant1, height, width, Color.LightCoral, label_Population_Plant1);
-                Set_Plant_mass<Plant_air_seed>(ref Plant2_mass, ref pictureBoxes, ref nomber_Plant2, height, width, Color.GreenYellow, label_Population_Plant2);
-                Set_Plant_mass<Plant_seed_by_animal>(ref Plant3_mass, ref pictureBoxes, ref nomber_Plant3, height, width, Color.Cyan, label_Population_Plant3);
-                Set_Plant_mass<Plant_vine>(ref Plant4_mass, ref pictureBoxes, ref nomber_Plant4, height, width, Color.BlueViolet, label_Population_Plant4);
+                Set_Plant_mass(ref Plant1_mass, ref pictureBoxes, height, width, Color.Red, label_Population_Plant1);
+                Set_Plant_mass(ref Plant2_mass, ref pictureBoxes, height, width, Color.Green, label_Population_Plant2);
+                Set_Plant_mass(ref Plant3_mass, ref pictureBoxes, height, width, Color.Blue, label_Population_Plant3);
+                Set_Plant_mass(ref Plant4_mass, ref pictureBoxes, height, width, Color.Indigo, label_Population_Plant4);
 
                 Set_PlantChar(1, typeof(Plant), numericUpDown_Fertility1, numericUpDown_Humidity1, numericUpDown_Illumination1);
                 Set_PlantChar(2, typeof(Plant_air_seed), numericUpDown_Fertility2, numericUpDown_Humidity2, numericUpDown_Illumination2);
@@ -189,138 +208,93 @@ namespace Practica
                 Set_PlantChar(4, typeof(Plant_vine), numericUpDown_Fertility4, numericUpDown_Humidity4, numericUpDown_Illumination4);
 
                 StartSimulation();
-                //MessageBox.Show("Симуляция окончена", "Все зараженные выздоровели или умерли", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void Set_Plant_mass<T>(ref T[] Plant_mass, ref PictureBox[,] pictureBoxes, ref int nomber_Plant, int height, int width, Color color, Label label_Population_Plant) where T : Plant, new()
+        private void Set_Plant_mass<T>(ref List<T> Plant_mass, ref PictureBox[,] pictureBoxes, int height, int width, Color color, Label label_Population_Plant) where T : Plant, new()
         {
-            nomber_Plant = 0;
-            Plant_mass[0] = new T();
+            Plant_mass.Add(new T());
             Plant_mass[0].Set_Null_Mass(height, width, color);
             pictureBoxes[Plant_mass[0].Y, Plant_mass[0].X].BackColor = Plant_mass[0].Color;
-            label_Population_Plant.Text = Convert.ToString(nomber_Plant + 1);
+            label_Population_Plant.Text = Convert.ToString(Plant_mass.Count);
         }
 
-        private void Grow<T>(ref T[] Plant_mass, ref PictureBox[,] pictureBoxes, ref int number_Plant, ref int size_Plant, Label label_Population_Plant, int n) where T : Plant, new()
+        private void Grow<T>(ref List<T> Plant_mass, ref PictureBox[,] pictureBoxes, Label label_Population_Plant) where T : Plant, new()
         {
-            int old_nomber = number_Plant, old_x, old_y, last_number = number_Plant;
-            for (int i = 0; i <= old_nomber; i++)
+            int old_number = Plant_mass.Count;          //число старых элементов в списке
+            int last_number = Plant_mass.Count;         //
+            for (int i = 0; i < old_number; i++)
             {
-                if (Plant_mass[i].Sprouts > 0)
-                {
-                    Plant_mass[i].Aging(pictureBoxes);
-                }
+                //if(Plant_mass[i].Sprouts > 0)
+                Plant_mass[i].Aging(pictureBoxes);
 
-                /*
-                //if (Plant_mass[i].Age % 12 == 0) ;
-                while(Plant_mass[i].Age > 0 && Plant_mass[i].Age % 5 == 0)
-                {
-                    Plant_mass[i].Death(pictureBoxes);
-                    //Plant_mass[i] = null;
-                    //if(nomber_Plant >= 0)
-                    Plant_mass[i] = Plant_mass[nomber_Plant];
-                    nomber_Plant--;
-                    i--;
-                }
-                */
-                /*
-                if (Plant_mass[i].Color != pictureBoxes[Plant_mass[i].Y, Plant_mass[i].X].BackColor)
-                {
-                    Plant_mass[i] = Plant_mass[nomber_Plant];
-                    nomber_Plant--;
-                    label_Population_Plant.Text = Convert.ToString(nomber_Plant + 1);
-                    i--;
-                    continue;
-                }
-                */
-
-
-                /*
-                for (int j = i - 1; j <= nomber_Plant; j++)
-                {
-                    if (Plant_mass[i].Age == 5)
-                    {
-                        pictureBoxes[Plant_mass[i].Y, Plant_mass[i].X].BackColor = Color.Transparent;
-                        Plant_mass[i] = Plant_mass[nomber_Plant];
-                        nomber_Plant--;
-                    }
-                }
-                */
-
-                if (Plant_mass[i].Age == 5 && number_Plant >= 0)
+                //удаление старых растений
+                if (Plant_mass[i].Age >= 5)
                 {
                     pictureBoxes[Plant_mass[i].Y, Plant_mass[i].X].BackColor = Color.Transparent;
-                    while (Plant_mass[number_Plant] == null)
-                        number_Plant--;
-                    Plant_mass[i] = Plant_mass[number_Plant];           //
-                    Plant_mass[number_Plant] = null;
-                    number_Plant--;
-                    label_Population_Plant.Text = Convert.ToString(number_Plant + 1);
+                    Plant_mass.RemoveAt(i);
+                    old_number--;
+                    last_number--;
+
+                    //label_Population_Plant.Text = Convert.ToString(Plant_mass.Count);   // TODO вынести в отдельный метод
                     i--;
                     continue;
                 }
 
-                for (int j = last_number; j <= number_Plant; j++)
+                //удаление непроросших семян
+                for (int j = last_number; j < Plant_mass.Count; j++)       
                 {
                     if (Plant_mass[j].Color != pictureBoxes[Plant_mass[j].Y, Plant_mass[j].X].BackColor)
                     {
-                        while (Plant_mass[number_Plant] == null)
-                            number_Plant--;
-                        Plant_mass[j] = Plant_mass[number_Plant];
-                        Plant_mass[number_Plant] = null;
-                        number_Plant--;
-                        label_Population_Plant.Text = Convert.ToString(number_Plant + 1);
+                        Plant_mass.RemoveAt(j--);
+
+                        //label_Population_Plant.Text = Convert.ToString(Plant_mass.Count);
                     }
                 }
 
+                last_number = Plant_mass.Count;
 
-                last_number = number_Plant;
-
-                if (Plant_mass[i].Age > 0)
+                if (Plant_mass.Count > 0 && Plant_mass[i].Age > 0) //Plant_mass.Count > 0 && 
                 {
-                    old_x = Plant_mass[i].X;
-                    old_y = Plant_mass[i].Y;
-                    int sprouts = Plant_mass[i].Sprouts;
-                    for (int j = 0; j < sprouts; j++)
+                    int old_x = Plant_mass[i].X;
+                    int old_y = Plant_mass[i].Y;
+                    for (int j = 0; j < Plant_mass[i].Sprouts; j++)
                     {
-                        Plant_mass[number_Plant + 1] = new T();
+                        Plant_mass.Add(new T());
                         PropertyInfo property;
-                        switch (n)
+                        switch (typeof(T).Name)
                         {
-                            case 1:
+                            case "Plant":
                                 Set_PlantChar(1, typeof(Plant), numericUpDown_Fertility1, numericUpDown_Humidity1, numericUpDown_Illumination1);
                                 Surv_type[0] = typeof(Plant_air_seed);
                                 Surv_type[1] = typeof(Plant_seed_by_animal);
                                 Surv_type[2] = typeof(Plant_vine);
                                 break;
-                            case 2:
+                            case "Plant_air_seed":
                                 Set_PlantChar(2, typeof(Plant_air_seed), numericUpDown_Fertility2, numericUpDown_Humidity2, numericUpDown_Illumination2);
                                 Surv_type[0] = typeof(Plant);
                                 Surv_type[1] = typeof(Plant_seed_by_animal);
                                 Surv_type[2] = typeof(Plant_vine);
                                 break;
-                            case 3:
+                            case "Plant_seed_by_animal":
                                 Set_PlantChar(3, typeof(Plant_seed_by_animal), numericUpDown_Fertility3, numericUpDown_Humidity3, numericUpDown_Illumination3);
                                 Surv_type[0] = typeof(Plant_air_seed);
                                 Surv_type[1] = typeof(Plant);
                                 Surv_type[2] = typeof(Plant_vine);
                                 break;
-                            case 4:
+                            case "Plant_vine":
                                 Set_PlantChar(4, typeof(Plant_vine), numericUpDown_Fertility4, numericUpDown_Humidity4, numericUpDown_Illumination4);
                                 Surv_type[0] = typeof(Plant_air_seed);
                                 Surv_type[1] = typeof(Plant_seed_by_animal);
                                 Surv_type[2] = typeof(Plant);
                                 break;
-                            default:
-                                break;
+                            default: break;
                         }
-
 
                         property = typeof(T).GetProperty("Survival_rate", BindingFlags.Public | BindingFlags.Static);
                         if (property != null)
                         {
-                            property.SetValue(null, Plant_mass[number_Plant + 1].Set_Survival_rate(Ground));
+                            property.SetValue(null, Plant_mass.Last().Set_Survival_rate(Ground));
                         }
 
                         for (int k = 0; k < 3; k++)
@@ -331,25 +305,21 @@ namespace Practica
                                 Surv_rate[k] = (int)property.GetValue(null);
                             }
                         }
+                        
+                        Plant_mass.Last().Reproduction(old_x, old_y, width, height, pictureBoxes, Ground, Surv_rate);
 
-                        Plant_mass[number_Plant + 1].Reproduction(old_x, old_y, width, height, pictureBoxes, Ground, Surv_rate);
-
-                        if (Plant_mass[number_Plant + 1].Sprouts > 0)
+                        if (Plant_mass.Last().Sprouts > 0)
                         {
-                            number_Plant++;
-                            label_Population_Plant.Text = Convert.ToString(number_Plant + 1);
-                            if (number_Plant >= size_Plant - 1)
-                            {
-                                size_Plant *= 2;
-                                //Plant_mass.Length()
-                                Array.Resize(ref Plant_mass, size_Plant);
-                            }
+                          //label_Population_Plant.Text = Convert.ToString(Plant_mass.Count);
+                        }
+                        else
+                        {
+                            Plant_mass.RemoveAt(Plant_mass.Count - 1);
                         }
                     }
                 }
             }
         }
-
 
         private void numericUpDown_Fertility_ValueChanged(object sender, EventArgs e)
         {

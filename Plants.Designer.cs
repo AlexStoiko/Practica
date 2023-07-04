@@ -151,7 +151,7 @@ namespace Practica
             this.numericUpDown_Height.Size = new System.Drawing.Size(58, 22);
             this.numericUpDown_Height.TabIndex = 5;
             this.numericUpDown_Height.Value = new decimal(new int[] {
-            10,
+            4,
             0,
             0,
             0});
@@ -187,7 +187,7 @@ namespace Practica
             this.numericUpDown_Width.Size = new System.Drawing.Size(58, 22);
             this.numericUpDown_Width.TabIndex = 4;
             this.numericUpDown_Width.Value = new decimal(new int[] {
-            10,
+            4,
             0,
             0,
             0});
